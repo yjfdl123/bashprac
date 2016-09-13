@@ -1,0 +1,2 @@
+cat 1.txt | tr '\n' '!' | tr -s ' ' | tr ' ' '\t' | tr '!' '\n'  | cut -f 1,9
+#用于转换
