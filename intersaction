@@ -1,0 +1,21 @@
+#!/bin/bash
+# descri: 求两个文件是否有交集
+echo "begin"
+budget_pvid=` cat  budget_log/budget_log | grep --color  'p:[[:digit:]]*:-1*:-1' | awk -F '\t' '{print $2}' | sort | uniq`
+for pvid in $budget_pvid
+do
+    echo "--------------" $pvid
+    budget_plan=`cat  budget_log/budget_log |  grep --color $pvid | grep --color -o 'p:[[:digit:]]*:-1*:-1*' | awk -F ':' '{print $2} '| sort | uniq `
+    for plan in $budget_plan
+    do
+        exist=`cat ie_log/ie_log | grep --color $pvid | awk -F '\t' '{print $37}' | grep --color $plan`
+        if [[ exist -ne "" ]]
+        then
+            echo "equal"
+            #cat  budget_log/budget_log |  grep --color $pvid | grep --color  'p:[[:digit:]]*:[[:digit:]]*:[[:digit:]]*'
+            echo $plan
+            cat ie_log/ie_log | grep --color $pvid | grep --color $plan
+        fi
+    done
+done
+echo "end"
