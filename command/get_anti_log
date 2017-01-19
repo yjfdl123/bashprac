@@ -1,0 +1,13 @@
+#!/bin/bash
+echo "批量获取日志"
+function get_anti(){
+    for id in $(seq 10 17)
+	do
+		echo "获取:"$id;
+        adop-hadoop-get -f maserati /data/bidding/cd_charge_log/201701/201701$id/cd_charge_log cd_charge_log_$id
+		sleep 20
+    done
+
+}
+get_anti
+echo "result:"$?
